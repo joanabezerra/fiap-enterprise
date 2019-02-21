@@ -21,13 +21,6 @@ public class BuscaTeste {
 		//Exibir o sabor do pastel
 		System.out.println(pastel.getSabor());
 		
-		//alterar o sabor do pastel
-		pastel.setSabor("4 Queijo");
-		
-		//fazer um commit
-		em.getTransaction().begin();
-		em.getTransaction().commit();
-		
 		//fechar as paradas
 		em.close();
 		fabrica.close();
