@@ -1,4 +1,4 @@
-package br.com.fiap.dao.exception;
+package br.com.fiap.exception;
 
 public class CommitException extends Exception {
 
@@ -26,5 +26,5 @@ public class CommitException extends Exception {
 		super(arg0);
 		// TODO Auto-generated constructor stub
 	}
-	
+
 }
