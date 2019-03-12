@@ -1,9 +1,9 @@
-package br.com.fip.dao;
+package br.com.fiap.dao;
 
 import br.com.fiap.exception.CodigoInvalidoException;
 import br.com.fiap.exception.CommitException;
 
-public interface GenericDAO<T, K> {
+public interface GenericDAO<T,K> {
 
 	void cadastrar(T entidade);
 	
@@ -16,3 +16,5 @@ public interface GenericDAO<T, K> {
 	void commit() throws CommitException;
 	
 }
+
+
