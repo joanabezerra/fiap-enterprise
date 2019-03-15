@@ -3,6 +3,7 @@ package br.com.fiap.test;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.fail;
 
 import java.util.Calendar;
@@ -13,6 +14,7 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -26,6 +28,24 @@ import br.com.fiap.exception.CommitException;
 class MercadoDAOTest {
 	
 	private static MercadoDAO dao;
+	private Mercado mercado;
+	
+	@BeforeEach
+	public void antesDeCadaTeste() {
+		//Arrange - Instanciar as classes
+		mercado = new Mercado("Andorinha", 
+				"Santana", CategoriaMercado.HIPER, 
+				new GregorianCalendar(1999,Calendar.AUGUST,1));
+			
+			//Act - chamar o método
+			try {
+				dao.cadastrar(mercado);
+				dao.commit();
+			} catch (CommitException e) {
+				e.printStackTrace();
+				fail("Falha no commit");
+			}
+	}
 	
 	@BeforeAll //executa antes de todos os testes
 	public static void init() {
@@ -37,21 +57,7 @@ class MercadoDAOTest {
 
 	@Test
 	@DisplayName("Teste de busca do DAO genérico")
-	void buscaTest() {
-		//Arrange - Instanciar as classes
-		Mercado mercado = new Mercado("Andorinha", 
-			"Santana", CategoriaMercado.HIPER, 
-			new GregorianCalendar(1999,Calendar.AUGUST,1));
-		
-		//Act - chamar o método
-		try {
-			dao.cadastrar(mercado);
-			dao.commit();
-		} catch (CommitException e) {
-			e.printStackTrace();
-			fail("Falha no commit");
-		}
-		
+	void buscaTest() {	
 		try {
 			Mercado busca = dao.buscar(mercado.getCodigo());
 
@@ -68,12 +74,18 @@ class MercadoDAOTest {
 	
 	@Test
 	void cadastrarTest() {
-		//Arrange - Instanciar as classes
-		Mercado mercado = new Mercado("Andorinha", 
-			"Santana", CategoriaMercado.HIPER, 
-			new GregorianCalendar(1999,Calendar.AUGUST,1));
+		//Assert - validar o resultado
+		//O banco gerou um código para o mercado..
+		assertNotEquals(0, mercado.getCodigo());
 		
-		//Act - chamar o método que será testado
+	}
+	
+	@Test
+	void alterar() {
+		//alterar
+		mercado.setNome("Adenilton Shop");
+		//buscar e validar se alterou
+		
 		try {
 			dao.cadastrar(mercado);
 			dao.commit();
@@ -82,9 +94,39 @@ class MercadoDAOTest {
 			fail("Falha no commit");
 		}
 		
-		//Assert - validar o resultado
-		//O banco gerou um código para o mercado..
-		assertNotEquals(0, mercado.getCodigo());
+		try {
+			Mercado busca = dao.buscar(mercado.getCodigo());
+
+			//Arrange - validação do resultado
+			assertNotNull(busca);
+			assertEquals("Adenilton Shop", busca.getNome());
+			
+		} catch (CodigoInvalidoException e) {
+			e.printStackTrace();
+			fail("Falha na pesquisa");
+		}
+		
+	}
+	
+	@Test
+	void delete() throws CodigoInvalidoException {				
+		try {
+			dao.remover(mercado.getCodigo());
+			dao.commit();
+		} catch (CommitException e) {
+			e.printStackTrace();
+			fail("Falha na remoção!");
+		}
+		
+		try {
+			Mercado busca = dao.buscar(mercado.getCodigo());
+			fail("Falha");
+		} catch(CodigoInvalidoException e) {
+			//Sucessi
+		}
+		
+		assertThrows(CodigoInvalidoException.class, 
+				() -> dao.buscar(mercado.getCodigo()));
 		
 	}
 
