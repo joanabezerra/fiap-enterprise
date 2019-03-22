@@ -11,27 +11,67 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 @Entity
-@SequenceGenerator(name = "SQ_ITEM_CARRINHO", sequenceName = "SQ_T_ITEM_CARRINHO", allocationSize = 1)
 @Table(name = "T_ITEM_CARRINHO")
+@SequenceGenerator(name = "item", sequenceName = "SQ_T_ITEM_CARRINHO", allocationSize = 1)
 public class ItemCarrinho {
-	
+
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "itemCarrinho")
-	@Column(name = "CD_ITEM_CARRINHO")
+	@Column(name = "cd_item")
+	@GeneratedValue(generator = "item", strategy = GenerationType.SEQUENCE)
 	private int codigo;
-	
+
 	@ManyToOne
-	@JoinColumn(name = "CD_PRODUTO")
-	private Produto produto;
-	
-	@ManyToOne
-	@JoinColumn(name = "CD_CARRINHO", nullable = false)
+	@JoinColumn(name = "cd_carrinho")
 	private CarrinhoCompras carrinho;
 	
-	@Column(name = "NR_ITENS")
+	@ManyToOne
+	@JoinColumn(name="cd_produto")
+	private Produto produto;
+
+	@Column(name = "nr_itens")
 	private int quantidade;
-	
-	@Column(name = "VL_ITEM")
+
+	@Column(name = "vl_item")
 	private double valor;
+
+	public int getCodigo() {
+		return codigo;
+	}
+
+	public void setCodigo(int codigo) {
+		this.codigo = codigo;
+	}
+
+	public CarrinhoCompras getCarrinho() {
+		return carrinho;
+	}
+
+	public void setCarrinho(CarrinhoCompras carrinho) {
+		this.carrinho = carrinho;
+	}
+
+	public Produto getProduto() {
+		return produto;
+	}
+
+	public void setProduto(Produto produto) {
+		this.produto = produto;
+	}
+
+	public int getQuantidade() {
+		return quantidade;
+	}
+
+	public void setQuantidade(int quantidade) {
+		this.quantidade = quantidade;
+	}
+
+	public double getValor() {
+		return valor;
+	}
+
+	public void setValor(double valor) {
+		this.valor = valor;
+	}
 	
 }
