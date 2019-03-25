@@ -1,10 +1,13 @@
 package br.com.fiap.entity;
 
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
@@ -17,6 +20,9 @@ public class Fornecedor {
 	@Column(name = "cd_fornecedor")
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "fornecedor")
 	private int codigo;
+	
+	@ManyToMany(mappedBy= "fornecedores")
+	private List<Produto> produtos;
 
 	@Column(name = "nm_fornecedor", nullable = false, length = 50)
 	private String nome;
@@ -24,12 +30,30 @@ public class Fornecedor {
 	@Column(name = "nr_cnpj", length = 18)
 	private String cnpj;
 
+	public Fornecedor(String nome, String cnpj) {
+		super();
+		this.nome = nome;
+		this.cnpj = cnpj;
+	}
+
+	public Fornecedor() {
+		super();
+	}
+
 	public int getCodigo() {
 		return codigo;
 	}
 
 	public void setCodigo(int codigo) {
 		this.codigo = codigo;
+	}
+
+	public List<Produto> getProdutos() {
+		return produtos;
+	}
+
+	public void setProdutos(List<Produto> produtos) {
+		this.produtos = produtos;
 	}
 
 	public String getNome() {
