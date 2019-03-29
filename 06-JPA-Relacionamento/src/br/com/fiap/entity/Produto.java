@@ -31,7 +31,6 @@ public class Produto {
 	@ManyToMany(cascade = CascadeType.PERSIST)
 	@JoinTable(name="T_PRODUT_FORNECEDOR", joinColumns = @JoinColumn(name= "CD_PRODUTO"), 
 										inverseJoinColumns = @JoinColumn(name= "CD_FORNECEDOR"))
-	
 	private List<Fornecedor> fornecedores; 
 	
 	@Column(name = "nm_produto", nullable = false, length = 100)
