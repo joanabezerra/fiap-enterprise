@@ -6,9 +6,11 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
 
 @Entity
 @SequenceGenerator(name="seqCidade", sequenceName="SEQ_CIDADE", allocationSize=1)
+@Table(name="T_CIDADE")
 public class Cidade {
 
 	@Id

@@ -10,11 +10,13 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 @Entity
 @SequenceGenerator(name="seqReserva", sequenceName="SEQ_RESERVA", allocationSize=1)
+@Table(name="T_RESERVA")
 public class Reserva {
 
 	@Id

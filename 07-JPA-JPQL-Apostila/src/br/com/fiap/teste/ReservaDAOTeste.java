@@ -2,6 +2,8 @@ package br.com.fiap.teste;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 import org.junit.jupiter.api.BeforeAll;
@@ -22,12 +24,18 @@ class ReservaDAOTeste {
 	}
 
 	@Test
+	void pesquisarPorDataTest() {
+		Calendar data = new GregorianCalendar(2000, Calendar.JULY, 28);
+		List<Reserva> lista = dao.buscarPorData(data);
+		for (Reserva reserva : lista) {
+			assertEquals(data, reserva.getDataReserva());
+		}
+	}
+	
+	@Test
 	void test() {
-		
 		List<Reserva> lista = dao.listar();
-		
 		assertEquals(3, lista.size());
-		
 	}
 
 }

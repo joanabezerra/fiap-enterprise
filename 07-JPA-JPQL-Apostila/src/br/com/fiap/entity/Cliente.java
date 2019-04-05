@@ -12,11 +12,13 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 @Entity
 @SequenceGenerator(name="seqCliente", sequenceName="SEQ_CLIENTE", allocationSize=1)
+@Table(name="T_CLIENTE")
 public class Cliente {
 
 	@Id
