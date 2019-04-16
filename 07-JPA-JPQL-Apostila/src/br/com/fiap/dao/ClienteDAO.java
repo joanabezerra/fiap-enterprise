@@ -8,6 +8,10 @@ public interface ClienteDAO extends GenericDAO<Cliente,Integer>{
 
 	List<Cliente> listar();
 	
-	List<Cliente> buscarClientePorNome(Cliente nome);
+	List<Cliente> buscarClientePorNome(String string);
+
+	List<Cliente> buscarPorEstado(String estado);
+	
+	List<Cliente> buscarPorDiasReservas(int dias);
 	
 }

@@ -1,12 +1,13 @@
 package br.com.fiap.teste;
 
-import static org.junit.Assert.fail;
+import static org.junit.Assert.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.List;
 
-import org.junit.Test;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
 
 import br.com.fiap.dao.ClienteDAO;
 import br.com.fiap.dao.EntityManagerFactorySingleton;
@@ -25,17 +26,29 @@ public class ClienteDAOTeste {
 	@Test
 	public void listar() {
 		List<Cliente> lista = dao.listar();
-		assertEquals(5, lista.size());
+		assertNotEquals(0, lista.size());
 	}
 
 	@Test
-	public void buscarClientePorNome(Cliente cliente) {
-		
-		cliente.setNome("Julio");
-		
-		List<Cliente> lista = dao.buscarClientePorNome(cliente);
-		
-		fail("Julio");
+	public void buscarClientePorNome() {
+		List<Cliente> lista = dao.buscarClientePorNome("Le");
+		for (Cliente cliente : lista) {
+			assertTrue(cliente.getNome().indexOf("Le") > -1);
+		}
+	}
+	
+	@Test
+	void buscarPorEstado() {
+		List<Cliente> lista = dao.buscarPorEstado("SP");
+		for (Cliente cliente : lista) {
+			assertEquals("SP", cliente.getEndereco().getCidade().getUf());
+		}
+	}
+	
+	@Test
+	void buscarPorDiasReserva() {
+		List<Cliente> lista = dao.buscarPorDiasReservas(10);
+		assertNotEquals(0, lista.size());
 	}
 	
 }

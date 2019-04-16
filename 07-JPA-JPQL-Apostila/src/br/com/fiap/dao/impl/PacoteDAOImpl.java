@@ -18,7 +18,7 @@ public class PacoteDAOImpl extends GenericDAOImpl<Pacote,Integer> implements Pac
 	@Override
 	public List<Pacote> buscarPorTransporte(Transporte transporte) {
 		//Criar query
-		TypedQuery<Pacote> buscarPorTransporte = em.createQuery("from Pacote where Transporte = :t", Pacote.class);
+		TypedQuery<Pacote> buscarPorTransporte = em.createQuery("from Pacote p where p.transporte = :t", Pacote.class);
 		//setar os parametros
 		buscarPorTransporte.setParameter("t", transporte);
 		//Executar Query
