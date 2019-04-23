@@ -4,6 +4,7 @@ import static org.junit.Assert.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.jupiter.api.BeforeAll;
@@ -49,6 +50,34 @@ public class ClienteDAOTeste {
 	void buscarPorDiasReserva() {
 		List<Cliente> lista = dao.buscarPorDiasReservas(10);
 		assertNotEquals(0, lista.size());
+	}
+	
+	@Test
+	void buscarPorNomeECidade() {
+		List<Cliente> lista = dao.buscarPorNomeECidade("Le", "Lon");
+		for (Cliente cliente : lista) {
+			assertTrue(cliente.getNome().contains("Le") && 
+					cliente.getEndereco().getCidade().getNome().contains("Lon"));
+		}
+	}
+	
+	@Test
+	void buscarPorEstados() {
+		List<String> estados = new ArrayList<String>();
+		estados.add("PR");
+		estados.add("SP");
+		
+		List<Cliente> lista = dao.buscarPorEstados(estados);
+		
+		for (Cliente cliente : lista) {
+			assertTrue(estados.contains(cliente.getEndereco().getCidade().getUf()));
+		}
+	}
+	
+	@Test 
+	void contarPorEstado() {
+		long qtd = dao.contarPorEstado("SP");
+		assertEquals(1, qtd);
 	}
 	
 }
