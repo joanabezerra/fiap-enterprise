@@ -5,16 +5,16 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.SecondaryTable;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 @Entity
 @Table(name="T_MEDICO")
-@SequenceGenerator(name="medico", sequenceName="SQ_MEDICO", allocationSize=1)
+@SecondaryTable(name="T_DADOS_MEDICO")
 public class Medico {
 	
 	@Id
-	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="medico")
 	@Column(name="CD_MEDICO", nullable=false)
 	private int codigo;
 	
@@ -24,6 +24,24 @@ public class Medico {
 	@Column(name="DS_ESPECIALIDADE", nullable = false, length=40)
 	private String especialidade;
 	
+	@Column(name="VL_SALARIO", table="T_DADOS_MEDICO")
+	private double salario;
+	
+	public Medico() {
+		super();
+	}
+	
+	@Column(name="NR_CONTA", table="T_DADOS_MEDICO")
+	private int conta;
+	
+	public Medico(int codigo, String nome, String especialidade, double salario, int conta) {
+		super();
+		this.codigo = codigo;
+		this.nome = nome;
+		this.especialidade = especialidade;
+		this.salario = salario;
+		this.conta = conta;
+	}
 	public int getCodigo() {
 		return codigo;
 	}

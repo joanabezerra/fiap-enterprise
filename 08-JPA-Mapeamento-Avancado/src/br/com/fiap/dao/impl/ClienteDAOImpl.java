@@ -3,6 +3,7 @@ package br.com.fiap.dao.impl;
 import javax.persistence.EntityManager;
 
 import br.com.fiap.bean.Cliente;
+import br.com.fiap.bean.Consulta;
 import br.com.fiap.dao.ClienteDAO;
 
 public class ClienteDAOImpl extends GenericDAOImpl<Cliente, Integer> implements ClienteDAO{
@@ -12,4 +13,7 @@ public class ClienteDAOImpl extends GenericDAOImpl<Cliente, Integer> implements 
 		// TODO Auto-generated constructor stub
 	}
 
+	@Override
+	public void cadastrar(Consulta consulta) {}
+	
 }

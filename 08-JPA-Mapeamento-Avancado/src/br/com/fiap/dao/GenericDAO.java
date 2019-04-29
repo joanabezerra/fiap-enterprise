@@ -1,11 +1,12 @@
 package br.com.fiap.dao;
 
+import br.com.fiap.bean.Consulta;
 import br.com.fiap.exception.CodigoInvalidoException;
 import br.com.fiap.exception.CommitException;
 
 public interface GenericDAO<T,K> {
 
-	void cadastrar(T entidade);
+	void cadastrar(Consulta consulta);
 	
 	void alterar(T entidade);
 	
@@ -14,7 +15,7 @@ public interface GenericDAO<T,K> {
 	void remover(K codigo) throws CodigoInvalidoException;
 	
 	void commit() throws CommitException;
+
+	void cadastrar(T entidade);
 	
 }
-
-
